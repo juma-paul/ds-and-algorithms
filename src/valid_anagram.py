@@ -3,16 +3,20 @@
 def valid_anagram_brute(s: str, t: str) -> bool:
     return sorted(s) == sorted(t)
 
-# Optimized solution [Time: O(n) | Space: O(n)]
+# Optimized solution [Time: O(n) | Space: O(1)]
 
 def valid_anagram_optim(s: str, t: str) -> bool:
     if len(t) != len(s):
         return False
     
-    count_s, count_t = {}, {}
+    count = {}
 
-    for i in range(len(t)):
-        count_s[s[i]] = 1 + count_s.get(s[i], 0)
-        count_t[t[i]] = 1 + count_t.get(t[i], 0)
+    for chr in s:
+        count[chr] = count.get(chr, 0) + 1
     
-    return count_s == count_t
+    for chr in t:
+        if chr not in count or count[chr] == 0:
+            return False
+        count[chr] -= 1
+
+    return True

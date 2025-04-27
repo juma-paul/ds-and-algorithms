@@ -10,5 +10,15 @@ def two_sum_brute(nums: List[int], target: int) -> List[int]:
             if nums[i] + nums[j] == target:
                 return [i, j]
 
+# Optimized Solution [Time: O(n) | Space: O(n)]
 
+def two_sum_optim(nums: List[int], target: int) -> List[int]:
+    hashmap = {}
+
+    for index, value in enumerate(nums):
+        complement = target - value
+
+        if complement in hashmap:
+            return [hashmap[complement], index]
+        hashmap[value] = index
     

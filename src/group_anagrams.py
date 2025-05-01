@@ -1,4 +1,6 @@
 from typing import List
+from collections import defaultdict
+
 # Brute force solution [Time: O(n^2 * mlogm) | Space: O(n * m)]
 
 def group_anagrams_brute(strs: List[str]) -> List[List[str]]:
@@ -20,6 +22,20 @@ def group_anagrams_brute(strs: List[str]) -> List[List[str]]:
     return group_anagrams
                 
 
-# Optimized solution [Time:  | Space: ]
-def group_anagrams_brute(strs: List[str]) -> List[List[str]]:
-    pass
+# Optimized solution [Time: O(n * m) | Space: O(n * m)]
+def group_anagrams_optim(strs: List[str]) -> List[List[str]]:
+    hash_map = {}
+
+    for string in strs:
+        char_freq = [0] * 26
+        for char in string:
+            char_freq[ord(char) - ord('a')] += 1
+        
+        key = tuple(char_freq)
+
+        if key in hash_map:
+            hash_map[key].append(string)
+        else:
+            hash_map[key] = [string]
+    
+    return list(hash_map.values())
